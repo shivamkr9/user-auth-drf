@@ -30,7 +30,6 @@ class UserManager(BaseUserManager):
         user = self.create_user(email, mobile, password)
         user.is_staff = True
         user.is_superuser = True
-        user.is_admin = True
         user.save(using=self._db)
 
         return user
@@ -40,10 +39,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
-    mobile = models.IntegerField(max_length=255, blank=False, unique=True)
+    mobile = models.IntegerField(blank=False, unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
 
     objects = UserManager()
 
@@ -53,9 +51,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
-    @property
-    def is_staff(self):
-        "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
-        return self.is_admin
