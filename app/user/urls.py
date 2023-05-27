@@ -20,7 +20,7 @@ urlpatterns = [
         "login/", views.MyTokenObtainPairView.as_view(), name="login"
     ),
     path(
-        "login/refresh/", TokenRefreshView.as_view(), name="login_refresh"
+        "token/refresh/", TokenRefreshView.as_view(), name="login_refresh"
     ),
 ]
 # Path: app\user\views.py
