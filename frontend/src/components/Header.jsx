@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import axiosInstance from "../utils/axiosInstance";
 
 const Header = () => {
-  let { user, logoutUser } = useContext(AuthContext);
-  // console.log(user);
+  let { user, logoutUser, userDetails } = useContext(AuthContext);
+
   return (
     <div>
       <Link to="/">Home</Link>
@@ -15,6 +16,9 @@ const Header = () => {
         <Link to="/login">Login</Link>
       )}
       {user && <p> Hello {user.name}</p>}
+      {userDetails && <p> Name: {userDetails.name}</p>}
+      {userDetails && <p> Email: {userDetails.email}</p>}
+      {userDetails && <p> Mobile: {userDetails.phone}</p>}
     </div>
   );
 };

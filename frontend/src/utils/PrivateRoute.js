@@ -4,8 +4,11 @@ import AuthContext from "../context/AuthContext";
 
 const PrivateRoute = ({ component: component, ...rest }) => {
   let { user } = useContext(AuthContext);
+  let accessToken = localStorage.getItem("authToken")
+    ? JSON.parse(localStorage.getItem("authToken"))
+    : null;
   console.log("PrivateRoute");
-  return user ? <Outlet /> : <Navigate to="/login" />;
+  return accessToken ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

@@ -14,10 +14,11 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ['email', 'password', 'password2', 'name', "mobile"]
+        fields = ["id", 'email', 'password', 'password2', 'name', "mobile"]
         extra_kwargs = {
             'password': {'write_only': True, 'min_length': 5}
             }
+        read_only_fields = ['id']
 
     def validate(self, attrs):
         password = attrs.get('password')
