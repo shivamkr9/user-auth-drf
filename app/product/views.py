@@ -8,7 +8,7 @@ from user.serializers import (
 from rest_framework.settings import api_settings
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from api import custompermission  # noqa
+
 
 # from core import models
 

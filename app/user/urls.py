@@ -9,18 +9,13 @@ from rest_framework_simplejwt.views import (
 from user import views
 
 
-app_name = 'user'
+app_name = "user"
 
 urlpatterns = [
-    path('create/', views.CreateUserView.as_view(), name='create'),
-    path('user/', views.GetUserView.as_view(), name='user'),
-    path('user/update', views.UpdateUserView.as_view(), name='user-update'),
-    path('user/delete', views.DeleteUserView.as_view(), name='user-delete'),
-    path(
-        "login/", views.MyTokenObtainPairView.as_view(), name="login"
-    ),
-    path(
-        "token/refresh/", TokenRefreshView.as_view(), name="login_refresh"
-    ),
+    path("", views.GetUserView.as_view(), name="get-user"),
+    path("create/", views.CreateUserView.as_view(), name="create-user"),
+    path("update", views.UpdateUserView.as_view(), name="update-user"),
+    path("login/", views.MyTokenObtainPairView.as_view(), name="login-user"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="login_refresh"),
 ]
 # Path: app\user\views.py

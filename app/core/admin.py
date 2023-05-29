@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from core.models import User
+from core.models import User, Category, BrandName, Product
 
 
 class UserCreationForm(forms.ModelForm):
@@ -27,7 +27,10 @@ class UserCreationForm(forms.ModelForm):
             "password",
             "mobile",
             "is_active",
-            "is_staff",
+            "is_delivery_partner",
+            "is_employee",
+            "is_distributer",
+            "is_admin",
             "is_superuser",
         ]
 
@@ -59,57 +62,93 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
-                "name",
-                "password",
-                "mobile",
-                "is_active",
-                "is_staff",
-                "is_superuser",
-            ]
+            "name",
+            "password",
+            "mobile",
+            "is_active",
+            "is_delivery_partner",
+            "is_employee",
+            "is_distributer",
+            "is_admin",
+            "is_superuser",
+        ]
 
 
 class UserAdmin(BaseUserAdmin):
     """Define the admin page for users."""
+
     # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
     ordering = ["id"]
-    list_display = ["id", "email", "name", "mobile", "is_active", "is_staff"]
+    list_display = [
+        "id",
+        "email",
+        "name",
+        "mobile",
+        "is_active",
+        "is_admin",
+    ]
     fieldsets = (
         (_("Securets"), {"fields": ("email", "password")}),
-        (_("Personal info"), {"fields": ("name", "mobile",)}),
+        (
+            _("Personal info"),
+            {
+                "fields": (
+                    "name",
+                    "mobile",
+                )
+            },
+        ),
         (
             _("Permissions"),
             {
                 "fields": (
                     "is_active",
-                    "is_staff",
+                    "is_delivery_partner",
+                    "is_employee",
+                    "is_distributer",
+                    "is_admin",
                     "is_superuser",
                 ),
             },
         ),
         (_("Important dates"), {"fields": ("last_login",)}),
     )
-    readonly_fields = ['last_login']
-    list_filter = ("id", "email", "name", "mobile", "is_active", "is_staff")
-    search_fields = ("id", "email", "name", "mobile", "is_active", "is_staff")
+    readonly_fields = ["last_login"]
+    list_filter = (
+        "id",
+        "email",
+        "name",
+        "mobile",
+        "is_active",
+        "is_admin",
+    )
+    search_fields = ("id", "email", "name", "mobile", "is_active", "is_admin")
     add_fieldsets = (
         (
             _("User Details"),
             {
                 "classes": ("wide",),
-                "fields": ("email",
-                           "password1",
-                           "password2",
-                           "name",
-                           "mobile",
-                           "is_active",
-                           "is_staff",
-                           "is_superuser",
-                           ),
+                "fields": (
+                    "email",
+                    "password1",
+                    "password2",
+                    "name",
+                    "mobile",
+                    "is_active",
+                    "is_delivery_partner",
+                    "is_employee",
+                    "is_distributer",
+                    "is_admin",
+                    "is_superuser",
+                ),
             },
         ),
     )
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(Category)
+admin.site.register(BrandName)
+admin.site.register(Product)
