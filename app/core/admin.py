@@ -8,7 +8,29 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from core.models import User, Category, BrandName, Product
+from core.models import (
+    User,
+    State,
+    District,
+    City,
+    PinCode,
+    ConnectionPurpose,
+    RegisterDocumentType,
+    RequestForConnectWithUs,
+    Address,
+    UserAddress,
+    Category,
+    SubCategory,
+    BrandName,
+    Product,
+    ProductVarient,
+    ProductConfiguration,
+    ProductReview,
+    Cart,
+    PaymetType,
+    Order,
+    PaymentDetails,
+)
 
 
 class UserCreationForm(forms.ModelForm):
@@ -149,6 +171,23 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(State)
+admin.site.register(District)
+admin.site.register(City)
+admin.site.register(PinCode)
+admin.site.register(ConnectionPurpose)
+admin.site.register(RegisterDocumentType)
+admin.site.register(RequestForConnectWithUs)
+admin.site.register(Address)
+admin.site.register(UserAddress)
 admin.site.register(Category)
+admin.site.register(SubCategory)
 admin.site.register(BrandName)
 admin.site.register(Product)
+admin.site.register(ProductVarient)
+admin.site.register(ProductConfiguration)
+admin.site.register(ProductReview)
+admin.site.register(Cart)
+admin.site.register(PaymetType)
+admin.site.register(Order)
+admin.site.register(PaymentDetails)

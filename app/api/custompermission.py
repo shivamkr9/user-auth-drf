@@ -26,3 +26,14 @@ class IsDeliveryPartnerUser(BasePermission):
 
     def has_permission(self, request, view):
         return bool(request.user and request.user.is_delivery_partner)
+
+
+class IsEmployeeOrDistributerUser(BasePermission):
+    """
+    Allows access only to authenticated users if it is Delivery Partner.
+    """
+
+    def has_permission(self, request, view):
+        return bool(
+            request.user and (request.user.is_employee or request.user.is_distributer)
+        )

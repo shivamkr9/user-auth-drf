@@ -5,6 +5,33 @@ from django.contrib.auth import (
 
 from rest_framework import serializers
 
+from core.models import (
+    State,
+    District,
+)
+
+
+class StateSerializer(serializers.ModelSerializer):
+    """Serializer for the State object"""
+
+    class Meta:
+        model = State
+        fields = ("id", "state")
+        read_only_fields = ("id",)
+
+
+class DistrictSerializer(serializers.ModelSerializer):
+    """Serializer for the District object"""
+
+    class Meta:
+        model = District
+        fields = ("id", "district", "state")
+        read_only_fields = ("id",)
+
+    def to_representation(self, instance):
+        self.fields["state"] = StateSerializer(read_only=True)
+        return super(DistrictSerializer, self).to_representation(instance)
+
 
 class UserSerializer(serializers.ModelSerializer):
     """Serializer for the user object."""

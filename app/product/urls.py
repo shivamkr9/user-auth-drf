@@ -1,15 +1,16 @@
 """
 URL mappings for the Product API.
 """
-from django.urls import path
+from django.urls import path, include
 from product import views
-
+from rest_framework import routers
 
 app_name = "product"
+router = routers.DefaultRouter()
+router.register("brand", views.BrandView, basename="brand")
+router.register("category", views.CategoryView, basename="category")
+
 
 urlpatterns = [
-    path("", views.GetUserView.as_view(), name="get-product"),
-    path("create/", views.CreateUserView.as_view(), name="create-product"),
-    path("update", views.UpdateUserView.as_view(), name="update-product"),
+    path("", include(router.urls)),
 ]
-# Path: app\user\views.py
